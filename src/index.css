@@ -1,0 +1,51 @@
+@font-face {
+  font-family: WildWood;
+  src: url('./fonts/Wildwood.ttf');
+}
+
+:global html, :global body, :global #app, :global [data-reactroot] {
+  height: 100%;
+}
+
+body {
+  font-family: WildWood;
+}
+
+.col {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.el-2 {
+  flex: 0 0 50%;
+}
+
+.el-3 {
+  flex: 0 0 33.33%;
+}
+
+.el-4 {
+  flex: 0 0 25%; 
+}
+
+.el-5 {
+  flex: 0 0 20%; 
+}
+
+.el-6 {
+  flex: 0 0 16.67%;
+}
+
+.el-8 {
+  flex: 0 0 12.5%;
+}
+
+.relative {
+  position: relative;
+}

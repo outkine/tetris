@@ -4,7 +4,7 @@ class Main extends React.Component {
   render () {
     return (
       <div>
-      <p>Maps</p>
+      <a href="/loading"><button>Start!</button></a>
       </div>
     )
   }

@@ -1,6 +1,6 @@
-from functools import wraps
 from flask import Flask, render_template
 from os import path
+from functools import wraps
 
 def templated(layout):
     def decorator(func):
@@ -25,6 +25,18 @@ app.config.update(
 @templated('start')
 def home():
     pass
+
+@app.route('/loading')
+@templated('loading')
+def loading():
+    pass
+
+@app.route('/game')
+def game():
+    if 1 == 1:
+        return render_template('index.html', layout='game')
+    else:
+        return ('', 204)
 
 
 if __name__ == '__main__':
