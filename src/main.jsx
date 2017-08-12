@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Start from './pages/start/index.jsx'
 import Loading from './pages/loading/index.jsx'
 import Game from './pages/game/index.jsx'
+import SingleGame from './pages/singlegame/index.jsx'
 import './index.css'
 
 let Component
@@ -16,6 +17,9 @@ switch(layout) {
     break
   case 'game':
     Component = Game
+    break
+  case 'singleGame':
+    Component = SingleGame
     break
 }
 

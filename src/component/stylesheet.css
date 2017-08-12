@@ -8,3 +8,24 @@
   display: inline;
   /* padding: 0 1%; */
 }
+
+.GameArea {
+  z-index: -1;
+  animation-name: unblur;
+  animation-duration: .4s;
+  animation-play-state: paused;
+  animation-fill-mode: forwards;
+  filter: blur(5px);
+}
+
+@keyframes unblur {
+  to {
+    filter: unset;
+  }
+}
+
+.ControlsExplanation {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  border-radius: 10px;
+}
