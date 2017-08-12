@@ -1,6 +1,7 @@
 import React from 'react'
 
 import GameArea from '../../component/GameArea.jsx'
+import ControlsExplanation from '../../component/ControlsExplanation.jsx'
 
 class Main extends React.Component {
   constructor (props) {
@@ -12,11 +13,22 @@ class Main extends React.Component {
   render () {
     return (
       <div className="vertical-center">
-        <GameArea className="absolute" updateWait="200" fullScreen background transition={this.state.transition} />
-        <div className="row">
-          <button><a href="/singleGame"><img src="media/user.svg" style={this.state.transition ? {animationPlayState: 'running'} : {}} ref={this.imgCallbackSingle} onClick={this.imgClickSingle} /></a></button>
-          <button><a href="/loading"><img src="media/user_group.svg" style={this.state.transition ? {animationPlayState: 'running'} : {}} ref={this.imgCallbackMulti} onClick={this.imgClickMulti} /></a></button>
-        </div>
+        <GameArea className="center" updateWait="200" background transition={this.state.transition} />
+        {
+          !this.state.transition ? (
+            <div className="horizontal-center col">
+              <h3>Welcome to</h3>
+              <h1>Super Tetris Online</h1>
+              <br /><br />
+              <ControlsExplanation />
+              <br />
+              <div className="row">
+                <button><img src="media/user.svg" style={this.state.transition ? {animationPlayState: 'running'} : {}} ref={this.imgCallbackSingle} onClick={this.imgClickSingle} /></button>
+                <button><img src="media/user_group.svg" style={this.state.transition ? {animationPlayState: 'running'} : {}} ref={this.imgCallbackMulti} onClick={this.imgClickMulti} /></button>
+              </div>
+            </div>
+          ) : ''
+        }
       </div>
     )
   }

@@ -22452,6 +22452,10 @@ var _GameArea = __webpack_require__(185);
 
 var _GameArea2 = _interopRequireDefault(_GameArea);
 
+var _ControlsExplanation = __webpack_require__(198);
+
+var _ControlsExplanation2 = _interopRequireDefault(_ControlsExplanation);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22496,29 +22500,39 @@ var Main = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'vertical-center' },
-        _react2.default.createElement(_GameArea2.default, { className: 'absolute', updateWait: '200', fullScreen: true, background: true, transition: this.state.transition }),
-        _react2.default.createElement(
+        _react2.default.createElement(_GameArea2.default, { className: 'center', updateWait: '200', background: true, transition: this.state.transition }),
+        !this.state.transition ? _react2.default.createElement(
           'div',
-          { className: 'row' },
+          { className: 'horizontal-center col' },
           _react2.default.createElement(
-            'button',
+            'h3',
             null,
-            _react2.default.createElement(
-              'a',
-              { href: '/singleGame' },
-              _react2.default.createElement('img', { src: 'media/user.svg', style: this.state.transition ? { animationPlayState: 'running' } : {}, ref: this.imgCallbackSingle, onClick: this.imgClickSingle })
-            )
+            'Welcome to'
           ),
           _react2.default.createElement(
-            'button',
+            'h1',
             null,
+            'Super Tetris Online'
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(_ControlsExplanation2.default, null),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
             _react2.default.createElement(
-              'a',
-              { href: '/loading' },
+              'button',
+              null,
+              _react2.default.createElement('img', { src: 'media/user.svg', style: this.state.transition ? { animationPlayState: 'running' } : {}, ref: this.imgCallbackSingle, onClick: this.imgClickSingle })
+            ),
+            _react2.default.createElement(
+              'button',
+              null,
               _react2.default.createElement('img', { src: 'media/user_group.svg', style: this.state.transition ? { animationPlayState: 'running' } : {}, ref: this.imgCallbackMulti, onClick: this.imgClickMulti })
             )
           )
-        )
+        ) : ''
       );
     }
   }]);
@@ -23334,7 +23348,7 @@ exports = module.exports = __webpack_require__(191)(undefined);
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: BigJohn;\n  src: url(" + __webpack_require__(199) + ");\n}\n\n.col {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n/* \n.el-2 {\n  flex: 0 0 50%;\n}\n\n.el-3 {\n  flex: 0 0 33.33%;\n}\n\n.el-4 {\n  flex: 0 0 25%; \n}\n\n.el-5 {\n  flex: 0 0 20%; \n}\n\n.el-6 {\n  flex: 0 0 16.67%;\n}\n\n.el-8 {\n  flex: 0 0 12.5%;\n}\n */\n.relative {\n  position: relative;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.center {\n  position: absolute;\n  margin: auto;\n  right: 0;\n  left: 0;\n  top: 0;\n  bottom: 0;\n}\n\n.vertical-center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.horizontal-center {\n  margin: 0 auto;\n}\n\nhtml, body, #app, [data-reactroot] {\n  height: 100%;\n}\n\nh1 {\n  font-family: BigJohn;\n  margin-top: 0;\n}\n\nh3 {\n  text-align: center;\n  font-weight: normal;\n  font-style: italic;\n}\n\nbody {\n  font-family: Lato;\n}\n\nbutton, input, label {\n  border-radius: 20px;\n  font-family: Lato;\n  /* border: 2px solid black; */\n  /* background-color: #e74c3c; */\n  /* border: 0; */\n  /* border-radius: 0; */\n  /* text-align: center; */\n  border: 1px solid rgb(200, 200, 200);\n  background-color: rgba(255, 255, 255, .4);\n  /* box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); */\n  -webkit-transition: background-color .5s, -webkit-transform .3s;\n  transition: background-color .5s, -webkit-transform .3s;\n  transition: transform .3s, background-color .5s;\n  transition: transform .3s, background-color .5s, -webkit-transform .3s;\n  -webkit-animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n          animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n\n@-webkit-keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\nbutton:hover, label:hover, input:hover {\n  background-color: rgb(240, 240, 240);\n}\n\nbutton:focus, label:focus, input:focus {\n  outline: 0;\n}\n\nbutton:active, button:focus, input:active, input:focus, input:checked + label {\n  -webkit-box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n          box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n}\n\nimg {\n  -o-object-fit: contain;\n     object-fit: contain;\n  height: 200px;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: BigJohn;\n  src: url(" + __webpack_require__(199) + ");\n}\n\n.col {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n/* \n.el-2 {\n  flex: 0 0 50%;\n}\n\n.el-3 {\n  flex: 0 0 33.33%;\n}\n\n.el-4 {\n  flex: 0 0 25%; \n}\n\n.el-5 {\n  flex: 0 0 20%; \n}\n\n.el-6 {\n  flex: 0 0 16.67%;\n}\n\n.el-8 {\n  flex: 0 0 12.5%;\n}\n */\n.relative {\n  position: relative;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.center {\n  position: absolute;\n  margin: auto;\n  right: 0;\n  left: 0;\n  top: 0;\n  bottom: 0;\n}\n\n.vertical-center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.horizontal-center {\n  margin: 0 auto;\n}\n\nhtml, body, #app, [data-reactroot] {\n  height: 100%;\n}\n\nh1 {\n  font-family: BigJohn;\n  margin-top: 0;\n  font-size: 4rem;\n}\n\nh3 {\n  text-align: center;\n  font-weight: normal;\n  font-style: italic;\n}\n\nbody {\n  font-family: Lato;\n}\n\nbutton, input, label {\n  border-radius: 20px;\n  font-family: Lato;\n  /* border: 2px solid black; */\n  /* background-color: #e74c3c; */\n  /* border: 0; */\n  /* border-radius: 0; */\n  /* text-align: center; */\n  border: 1px solid rgb(200, 200, 200);\n  background-color: rgba(255, 255, 255, .4);\n  /* box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); */\n  -webkit-transition: background-color .5s, -webkit-transform .3s;\n  transition: background-color .5s, -webkit-transform .3s;\n  transition: transform .3s, background-color .5s;\n  transition: transform .3s, background-color .5s, -webkit-transform .3s;\n  -webkit-animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n          animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n\n@-webkit-keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\nbutton:hover, label:hover, input:hover {\n  background-color: rgb(240, 240, 240);\n}\n\nbutton:focus, label:focus, input:focus {\n  outline: 0;\n}\n\nbutton:active, button:focus, input:active, input:focus, input:checked + label {\n  -webkit-box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n          box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n}\n\nimg {\n  -o-object-fit: contain;\n     object-fit: contain;\n  height: 200px;\n}", ""]);
 
 // exports
 exports.locals = {
@@ -23992,26 +24006,9 @@ var Component = function (_React$Component) {
         { className: 'vertical-center' },
         _react2.default.createElement(_GameArea2.default, { className: 'center', interactive: true, pause: this.state.showDialog, background: this.state.showDialog }),
         this.state.showDialog ? _react2.default.createElement(
-          'div',
-          { className: 'horizontal-center col' },
-          _react2.default.createElement(
-            'h3',
-            null,
-            'Welcome to the single player version of'
-          ),
-          _react2.default.createElement(
-            'h1',
-            null,
-            'Super Tetris Online'
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(_ControlsExplanation2.default, null),
-          _react2.default.createElement(
-            'button',
-            { onClick: this.buttonHandler },
-            'ready?'
-          )
+          'button',
+          { className: 'horizontal-center', onClick: this.buttonHandler },
+          'ready?'
         ) : ''
       );
     }

@@ -19,13 +19,7 @@ class Component extends React.Component {
         <GameArea className="center" interactive pause={this.state.showDialog} background={this.state.showDialog} />
         {
           this.state.showDialog ? (
-            <div className="horizontal-center col">
-              <h3>Welcome to the single player version of</h3>
-              <h1>Super Tetris Online</h1>
-              <br /><br />
-              <ControlsExplanation />
-              <button onClick={this.buttonHandler}>ready?</button>
-            </div>
+            <button className="horizontal-center" onClick={this.buttonHandler}>ready?</button>
           ) : ''
         }
       </div>
