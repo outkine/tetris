@@ -1,6 +1,7 @@
-from flask import Flask, render_template
-from os import path
+from flask import Flask, render_template, session
+from os import path, urandom
 from functools import wraps
+from flask_socketio import SocketIO, emit
 
 def templated(layout):
     def decorator(func):
@@ -19,6 +20,10 @@ app.config.update(
     SECRET_KEY = b'\xb1\xfe\xf8\x8f\xc8\x06\xf2$+H8ft \x92\xcczk\xc7\x9fP\xc5<\x1d',
     DEBUG = True
 )
+socketio = SocketIO(app)
+
+queue = []
+pairs = {}
 
 
 @app.route('/')
@@ -29,14 +34,35 @@ def home():
 @app.route('/loading')
 @templated('loading')
 def loading():
-    pass
+    session['id'] = urandom(16)
+    # print(queue, session['id'])
+    if queue:
+        session['opponent'] = queue.pop(0)
+        pairs[session['opponent']] = session['id']
+        print(session['opponent'], 'is here')
+        print(session['id'], 'am I')
+    else:
+        print('no one here :(,', session['id'], 'am i')
+        session['opponent'] = None
+        queue.append(session['id'])
 
 @app.route('/game')
 def game():
-    if 1 == 1:
-        return render_template('index.html', layout='game')
+    if session['opponent'] or session['id'] in pairs:
+        print(session['id'], session['opponent'])
+        if not session['opponent']:
+            session['opponent'] = pairs.pop(session['id'])
+            print('I found', session['opponent'])
+        return render_template('index.html', layout='game', id=session['id'])
     else:
         return ('', 204)
+
+# @socketio.on('move')
+# def process_move(data):
+    # print(data)
+    # if data['id'] == session['opponent']:
+        # emit('opponent_move', {data['grid']})
+
 
 @app.route('/singleGame')
 @templated('singleGame')
@@ -55,4 +81,4 @@ def add_header(r):
 
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app)
