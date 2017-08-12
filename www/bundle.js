@@ -23055,8 +23055,10 @@ var Component = function (_React$Component) {
             if (results[2]) {
               if (_this.props.transition) {
                 phase = 'transition1';
+              } else if (_this.props.background) {
+                grid = createGrid();
               } else {
-                return;
+                _this.props.onGameOver();
               }
             }
           }

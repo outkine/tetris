@@ -372,8 +372,10 @@ class Component extends React.Component {
           if (results[2]) {
             if (this.props.transition) {
               phase = 'transition1'
+            } else if (this.props.background) {
+              grid = createGrid()
             } else {
-              return
+              this.props.onGameOver()
             }
           }
         }
