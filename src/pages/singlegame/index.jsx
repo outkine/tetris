@@ -8,26 +8,14 @@ import TetrisButton from '../../component/TetrisButton.jsx'
 class Component extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showDialog: true
-    }
   }
 
   render () {
     return (
       <div className="vertical-center">
-        <GameArea className="center" interactive pause={this.state.showDialog} background={this.state.showDialog} />
-        {
-          this.state.showDialog ? (
-            <button className="horizontal-center" onClick={this.buttonHandler}>ready?</button>
-          ) : ''
-        }
+        <GameArea className="center" interactive />
       </div>
     )
-  }
-
-  buttonHandler = () => {
-    this.setState({showDialog: false})
   }
 }
 

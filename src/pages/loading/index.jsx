@@ -3,9 +3,10 @@ import React from 'react'
 class Main extends React.Component {
   render () {
     return (
-      <p>
-        loading.......
-      </p>
+      <div className="vertical-center">
+        <img src='media/rotation.gif' />
+        <h3>finding an opponent...</h3>
+      </div>
     )
   }
 

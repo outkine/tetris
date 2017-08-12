@@ -23172,9 +23172,14 @@ var Main = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'p',
-        null,
-        'loading.......'
+        'div',
+        { className: 'vertical-center' },
+        _react2.default.createElement('img', { src: 'media/rotation.gif' }),
+        _react2.default.createElement(
+          'h3',
+          null,
+          'finding an opponent...'
+        )
       );
     }
   }, {
@@ -23350,7 +23355,7 @@ exports = module.exports = __webpack_require__(191)(undefined);
 
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: BigJohn;\n  src: url(" + __webpack_require__(199) + ");\n}\n\n.col {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n/* \n.el-2 {\n  flex: 0 0 50%;\n}\n\n.el-3 {\n  flex: 0 0 33.33%;\n}\n\n.el-4 {\n  flex: 0 0 25%; \n}\n\n.el-5 {\n  flex: 0 0 20%; \n}\n\n.el-6 {\n  flex: 0 0 16.67%;\n}\n\n.el-8 {\n  flex: 0 0 12.5%;\n}\n */\n.relative {\n  position: relative;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.center {\n  position: absolute;\n  margin: auto;\n  right: 0;\n  left: 0;\n  top: 0;\n  bottom: 0;\n}\n\n.vertical-center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.horizontal-center {\n  margin: 0 auto;\n}\n\nhtml, body, #app, [data-reactroot] {\n  height: 100%;\n}\n\nh1 {\n  font-family: BigJohn;\n  margin-top: 0;\n  font-size: 4rem;\n}\n\nh3 {\n  text-align: center;\n  font-weight: normal;\n  font-style: italic;\n}\n\nbody {\n  font-family: Lato;\n}\n\nbutton, input, label {\n  border-radius: 20px;\n  font-family: Lato;\n  /* border: 2px solid black; */\n  /* background-color: #e74c3c; */\n  /* border: 0; */\n  /* border-radius: 0; */\n  /* text-align: center; */\n  border: 1px solid rgb(200, 200, 200);\n  background-color: rgba(255, 255, 255, .4);\n  /* box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); */\n  -webkit-transition: background-color .5s, -webkit-transform .3s;\n  transition: background-color .5s, -webkit-transform .3s;\n  transition: transform .3s, background-color .5s;\n  transition: transform .3s, background-color .5s, -webkit-transform .3s;\n  -webkit-animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n          animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n\n@-webkit-keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\nbutton:hover, label:hover, input:hover {\n  background-color: rgb(240, 240, 240);\n}\n\nbutton:focus, label:focus, input:focus {\n  outline: 0;\n}\n\nbutton:active, button:focus, input:active, input:focus, input:checked + label {\n  -webkit-box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n          box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n}\n\nimg {\n  -o-object-fit: contain;\n     object-fit: contain;\n  height: 200px;\n}", ""]);
+exports.push([module.i, "@font-face {\n  font-family: BigJohn;\n  src: url(" + __webpack_require__(199) + ");\n}\n\n.col {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n.row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n      -ms-flex-pack: space-evenly;\n          justify-content: space-evenly;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n/* \n.el-2 {\n  flex: 0 0 50%;\n}\n\n.el-3 {\n  flex: 0 0 33.33%;\n}\n\n.el-4 {\n  flex: 0 0 25%; \n}\n\n.el-5 {\n  flex: 0 0 20%; \n}\n\n.el-6 {\n  flex: 0 0 16.67%;\n}\n\n.el-8 {\n  flex: 0 0 12.5%;\n}\n */\n.relative {\n  position: relative;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.center {\n  position: absolute;\n  margin: auto;\n  right: 0;\n  left: 0;\n  top: 0;\n  bottom: 0;\n}\n\n.vertical-center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n.horizontal-center {\n  margin: 0 auto;\n}\n\nhtml, body, #app, [data-reactroot] {\n  height: 100%;\n}\n\nh1 {\n  font-family: BigJohn;\n  margin-top: 0;\n  font-size: 4rem;\n}\n\nh3 {\n  text-align: center;\n  font-weight: normal;\n  font-style: italic;\n}\n\nbody {\n  font-family: Lato;\n}\n\nbutton, input, label {\n  border-radius: 20px;\n  font-family: Lato;\n  /* border: 2px solid black; */\n  /* background-color: #e74c3c; */\n  /* border: 0; */\n  /* border-radius: 0; */\n  /* text-align: center; */\n  border: 1px solid rgb(200, 200, 200);\n  background-color: rgba(255, 255, 255, .4);\n  /* box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1); */\n  -webkit-transition: background-color .5s, -webkit-transform .3s;\n  transition: background-color .5s, -webkit-transform .3s;\n  transition: transform .3s, background-color .5s;\n  transition: transform .3s, background-color .5s, -webkit-transform .3s;\n  -webkit-animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n          animation-name: _23-z6e-ZfJg_zYe8eQGOpG;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n\n@-webkit-keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes _23-z6e-ZfJg_zYe8eQGOpG {\n  to {\n    opacity: 0;\n  }\n}\n\nbutton:hover, label:hover, input:hover {\n  background-color: rgba(240, 240, 240, .5);\n}\n\nbutton:focus, label:focus, input:focus {\n  outline: 0;\n}\n\nbutton:active, button:focus, input:active, input:focus, input:checked + label {\n  -webkit-box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n          box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, .2);\n}\n\nimg {\n  -o-object-fit: contain;\n     object-fit: contain;\n  height: 200px;\n}", ""]);
 
 // exports
 exports.locals = {
@@ -23988,16 +23993,7 @@ var Component = function (_React$Component) {
   function Component(props) {
     _classCallCheck(this, Component);
 
-    var _this = _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
-
-    _this.buttonHandler = function () {
-      _this.setState({ showDialog: false });
-    };
-
-    _this.state = {
-      showDialog: true
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
   }
 
   _createClass(Component, [{
@@ -24006,12 +24002,7 @@ var Component = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'vertical-center' },
-        _react2.default.createElement(_GameArea2.default, { className: 'center', interactive: true, pause: this.state.showDialog, background: this.state.showDialog }),
-        this.state.showDialog ? _react2.default.createElement(
-          'button',
-          { className: 'horizontal-center', onClick: this.buttonHandler },
-          'ready?'
-        ) : ''
+        _react2.default.createElement(_GameArea2.default, { className: 'center', interactive: true })
       );
     }
   }]);

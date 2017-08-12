@@ -111,7 +111,7 @@ button, input, label {
 }
 
 button:hover, label:hover, input:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgba(240, 240, 240, .5);
 }
 
 button:focus, label:focus, input:focus {
