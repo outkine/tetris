@@ -1,12 +1,13 @@
 import React from 'react'
 
 import style from './stylesheet.css'
+import { COLORS, GRID_COLOR, PIECES } from '../common/constants.js'
 
 class Component extends React.Component {
   constructor (props) {
     super(props)
 
-    this.BLOCK_WIDTH = this.props.blockWidth || 40
+    this.BLOCK_WIDTH = this.props.blockWidth || 30
     if (this.props.fullScreen) {
       this.VISUAL_GRID_HEIGHT = Math.floor(window.innerHeight / this.BLOCK_WIDTH)
       this.GRID_WIDTH = Math.floor(window.innerWidth / this.BLOCK_WIDTH)
@@ -20,6 +21,16 @@ class Component extends React.Component {
     this.INITIAL_UPDATE_WAIT = 400
     this.FINAL_UPDATE_WAIT = 50
     this.SKIP_WAIT = false
+
+    this.nextPiece = null
+
+    if (this.props.socket) {
+      this.props.socket.on('choice', (data) => {
+        if (data['id'] === opponent) {
+          this.nextPiece = data['choice']
+        }
+      })
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -37,47 +48,11 @@ class Component extends React.Component {
   canvasCallback = (canvas) => {
     const HIDDEN_HEIGHT = 3
     const GRID_HEIGHT = this.VISUAL_GRID_HEIGHT + HIDDEN_HEIGHT
-
-    const COLORS = [
-      '#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e',
-      '#16a085', '#27ae60', '#2980b9', '#8e44ad', '#2c3e50',
-      '#f1c40f', '#e67e22', '#e74c3c', '#95a5a6',
-      '#f39c12', '#d35400', '#c0392b', '#7f8c8d'
-    ]
-    const GRID_COLOR = '#bdc3c7'
-
     const KEY_RIGHT = 39
     const KEY_LEFT = 37
     const KEY_ROTATE = 38
     const KEY_DROP = 40
 
-    // format: 
-    // right-most block is first in the array
-    // rotation center is second in the array
-    // squares have '[0, 0]' as their rotation center
-    const PIECES = [
-      [
-        [3, 0], [2, 0], [0, 0], [1, 0] 
-      ],
-      [
-        [2, 1], [1, 1], [0, 0], [0, 1]
-      ],
-      [
-        [2, 0], [1, 1], [0, 1], [2, 1]
-      ],
-      [
-        [1, 1], [0, 0], [1, 0], [0, 1]
-      ],
-      [
-        [2, 0], [1, 1], [0, 1], [1, 0]
-      ],
-      [
-        [2, 1], [1, 1], [1, 0], [0, 0]
-      ],
-      [
-        [2, 1], [1, 1], [0, 1], [1, 0]
-      ]
-    ]
 
     const randRange = (upper) => {
       return Math.floor(Math.random() * upper)
@@ -100,7 +75,14 @@ class Component extends React.Component {
     }
 
     const generateNewPiece = () => {
-      let piece = deepCopy(randomItem(PIECES))
+      let piece
+      if (this.nextPiece !== null) {
+        piece = deepCopy(PIECES[this.nextPiece])
+        console.log(this.nextPiece, piece)
+        this.nextPiece = null
+      } else {
+        piece = deepCopy(randomItem(PIECES))
+      }
       let x = randRange(this.GRID_WIDTH - (piece[0][0] + 1))
       for (let i = 0; i < piece.length; i++) {
         piece[i][0] += x
@@ -199,7 +181,7 @@ class Component extends React.Component {
         }
       }
 
-      return [newPiece, currentPieceId, gameOver]
+      return [newPiece, currentPieceId, gameOver, crashed]
     }
 
     const copyOverGrid = (oldGrid, newGrid, currentPieceId) => {
@@ -372,6 +354,9 @@ class Component extends React.Component {
           drawGrid(grid)
           if (this.props.socket) {
             this.props.socket.emit('move', {'id': id, 'grid': grid})
+            if (results[3] ) {
+              this.props.socket.emit('crash', {'id': id}) 
+            }
           }
           if (results[2]) {
             if (this.props.transition) {
@@ -388,8 +373,7 @@ class Component extends React.Component {
     }
 
     if (this.props.inputSocket) {
-      this.props.inputSocket.on('moveOther', (data) => {
-        console.log('got data', data)
+      this.props.inputSocket.on('move', (data) => {
         if (data['id'] == opponent) {
           drawGrid(data['grid'])
         }

@@ -74,8 +74,15 @@ def game():
 @socketio.on('move')
 def process_move(data):
     print('SEND DATA ID:', data['id'])
-    emit('moveOther', data, broadcast=True)
+    emit('move', data, broadcast=True)
 
+@socketio.on('crash')
+def crash(data):
+    emit('crash', data, broadcast=True)
+
+@socketio.on('choice')
+def crash(data):
+    emit('choice', data, broadcast=True)
 
 @app.route('/singleGame')
 @templated('singleGame')
