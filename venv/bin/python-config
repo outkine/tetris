@@ -1,4 +1,4 @@
-#!/home/jetmate/programming/web-dev/tetris/venv/bin/python
+#!/home/anton/tetris/venv/bin/python
 
 import sys
 import getopt
