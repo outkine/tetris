@@ -42,20 +42,20 @@ def home():
 @templated('loading')
 def loading():
     session['opponent'] = None
-    # session.modified = True
+    session.modified = True
     print('LOADING', session, queue)
     if 'id' not in session:
         session['id'] = random_string()
         print('NEWID:', session['id'])
     if queue:
         session['opponent'] = queue.pop(0)
-        # session.modified = True
+        session.modified = True
         pairs[session['opponent']] = session['id']
         print('FOUND:', session['opponent'], 'ID:', session['id'])
     else:
         print('NOFOUND, ID:', session['id'])
         session['opponent'] = None
-        # session.modified = True 
+        session.modified = True 
         queue.append(session['id'])
 
 @app.route('/game')
@@ -65,7 +65,7 @@ def game():
         print('SUCCESS!')
         if not session['opponent']:
             session['opponent'] = pairs.pop(session['id'])
-            # session.modified = True
+            session.modified = True
             print('FOUND', session['opponent'])
         return render_template('index.html', layout='game', id=session['id'], opponent=session['opponent'])
     else:
