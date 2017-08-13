@@ -39,8 +39,6 @@ def home():
 @app.route('/loading')
 @templated('loading')
 def loading():
-    session['opponent'] = None
-    session.modified = True
     queue = cache.get('queue')
     print('LOADING', session, queue)
     if 'id' not in session:
