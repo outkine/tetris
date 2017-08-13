@@ -15,9 +15,9 @@ class Game extends React.Component {
     return (
       <div className='vertical-center'>
         <div className='row'>
-          <GameArea className={style.GameArea} socket={this.socket} interactive   />
+          <GameArea className={style.GameArea} blockWidth={30} socket={this.socket} interactive />
           <PieceConsole socket={this.socket} />
-          <GameArea className={style.GameArea} inputSocket={this.socket} />
+          <GameArea className={style.GameArea} blockWidth={30} inputSocket={this.socket} />
         </div>
       </div>
     )

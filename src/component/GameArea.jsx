@@ -7,7 +7,7 @@ class Component extends React.Component {
   constructor (props) {
     super(props)
 
-    this.BLOCK_WIDTH = this.props.blockWidth || 30
+    this.BLOCK_WIDTH = this.props.blockWidth || 45
     if (this.props.fullScreen) {
       this.VISUAL_GRID_HEIGHT = Math.floor(window.innerHeight / this.BLOCK_WIDTH)
       this.GRID_WIDTH = Math.floor(window.innerWidth / this.BLOCK_WIDTH)
@@ -78,7 +78,6 @@ class Component extends React.Component {
       let piece
       if (this.nextPiece !== null) {
         piece = deepCopy(PIECES[this.nextPiece])
-        console.log(this.nextPiece, piece)
         this.nextPiece = null
       } else {
         piece = deepCopy(randomItem(PIECES))
@@ -106,7 +105,7 @@ class Component extends React.Component {
       return false
     }
 
-    const rotatePiece = (piece) => {
+    const rotatePiece = (piece, pieceId, grid) => {
       // if is square, don't rotate
       if (isSquare(piece)) {
         return piece
@@ -116,7 +115,14 @@ class Component extends React.Component {
         let offset = [piece[1][0] - x, piece[1][1] - y]
         offset[1] *= -1
         let newBlock = [piece[1][0] + offset[1], piece[1][1] + offset[0]]
-        rotatedPiece.push(newBlock)
+        if (
+          newBlock[0] < this.GRID_WIDTH && newBlock[0] >= 0 && newBlock[1] < GRID_HEIGHT && newBlock[1] >= 0 &&
+          (typeof grid[newBlock[0]][newBlock[1]] === 'undefined' || grid[newBlock[0]][newBlock[1]] === pieceId)
+          ) {
+          rotatedPiece.push(newBlock)
+        } else {
+          return piece  
+        }
       }
       return rotatedPiece
     }
@@ -365,6 +371,7 @@ class Component extends React.Component {
               grid = createGrid()
             } else {
               this.props.onGameOver()
+              return
             }
           }
         }
@@ -401,7 +408,7 @@ class Component extends React.Component {
           } else if (event.keyCode === KEY_RIGHT) {
             currentPiece = movePiece(currentPiece, currentPieceId, grid, 1)
           } else if (event.keyCode === KEY_ROTATE) {
-            currentPiece = rotatePiece(currentPiece)
+            currentPiece = rotatePiece(currentPiece, currentPieceId, grid)
           } else {
             return
           }

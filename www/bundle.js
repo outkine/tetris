@@ -7715,7 +7715,6 @@ var Component = function (_React$Component) {
         var piece = void 0;
         if (_this.nextPiece !== null) {
           piece = deepCopy(_constants.PIECES[_this.nextPiece]);
-          console.log(_this.nextPiece, piece);
           _this.nextPiece = null;
         } else {
           piece = deepCopy(randomItem(_constants.PIECES));
@@ -7743,7 +7742,7 @@ var Component = function (_React$Component) {
         return false;
       };
 
-      var rotatePiece = function rotatePiece(piece) {
+      var rotatePiece = function rotatePiece(piece, pieceId, grid) {
         // if is square, don't rotate
         if (isSquare(piece)) {
           return piece;
@@ -7762,7 +7761,11 @@ var Component = function (_React$Component) {
             var offset = [piece[1][0] - x, piece[1][1] - y];
             offset[1] *= -1;
             var newBlock = [piece[1][0] + offset[1], piece[1][1] + offset[0]];
-            rotatedPiece.push(newBlock);
+            if (newBlock[0] < _this.GRID_WIDTH && newBlock[0] >= 0 && newBlock[1] < GRID_HEIGHT && newBlock[1] >= 0 && (typeof grid[newBlock[0]][newBlock[1]] === 'undefined' || grid[newBlock[0]][newBlock[1]] === pieceId)) {
+              rotatedPiece.push(newBlock);
+            } else {
+              return piece;
+            }
           }
         } catch (err) {
           _didIteratorError2 = true;
@@ -8143,6 +8146,7 @@ var Component = function (_React$Component) {
                 grid = createGrid();
               } else {
                 _this.props.onGameOver();
+                return;
               }
             }
           }
@@ -8179,7 +8183,7 @@ var Component = function (_React$Component) {
             } else if (event.keyCode === KEY_RIGHT) {
               currentPiece = movePiece(currentPiece, currentPieceId, grid, 1);
             } else if (event.keyCode === KEY_ROTATE) {
-              currentPiece = rotatePiece(currentPiece);
+              currentPiece = rotatePiece(currentPiece, currentPieceId, grid);
             } else {
               return;
             }
@@ -8191,7 +8195,7 @@ var Component = function (_React$Component) {
       }
     };
 
-    _this.BLOCK_WIDTH = _this.props.blockWidth || 30;
+    _this.BLOCK_WIDTH = _this.props.blockWidth || 45;
     if (_this.props.fullScreen) {
       _this.VISUAL_GRID_HEIGHT = Math.floor(window.innerHeight / _this.BLOCK_WIDTH);
       _this.GRID_WIDTH = Math.floor(window.innerWidth / _this.BLOCK_WIDTH);
@@ -26861,6 +26865,10 @@ var _ControlsExplanation = __webpack_require__(95);
 
 var _ControlsExplanation2 = _interopRequireDefault(_ControlsExplanation);
 
+var _Footer = __webpack_require__(248);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26917,7 +26925,7 @@ var Main = function (_React$Component) {
           _react2.default.createElement(
             'h1',
             null,
-            'Super Tetris Online'
+            'Austhetically Pleasing Tetris'
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement('br', null),
@@ -26937,7 +26945,8 @@ var Main = function (_React$Component) {
               _react2.default.createElement('img', { src: 'media/user_group.svg', style: this.state.transition ? { animationPlayState: 'running' } : {}, ref: this.imgCallbackMulti, onClick: this.imgClickMulti })
             )
           )
-        ) : ''
+        ) : '',
+        _react2.default.createElement(_Footer2.default, null)
       );
     }
   }]);
@@ -26956,14 +26965,14 @@ exports = module.exports = __webpack_require__(93)(undefined);
 
 
 // module
-exports.push([module.i, "._1BpjmvPMJtMMtxQH-v9Rij {\n  width: 100%;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);\n          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);\n  /* padding: .8% 0;   */\n}\n\n._1BpjmvPMJtMMtxQH-v9Rij * {\n  display: inline;\n  /* padding: 0 1%; */\n}\n\n._1DIslOe-gEsQqTzH6MRKD9 {\n  z-index: -1;\n  -webkit-animation-name: _35YneHz04JzuY63SNeQGlZ;\n          animation-name: _35YneHz04JzuY63SNeQGlZ;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n  -webkit-filter: blur(5px);\n          filter: blur(5px);\n}\n\n@-webkit-keyframes _35YneHz04JzuY63SNeQGlZ {\n  to {\n    -webkit-filter: unset;\n            filter: unset;\n  }\n}\n\n@keyframes _35YneHz04JzuY63SNeQGlZ {\n  to {\n    -webkit-filter: unset;\n            filter: unset;\n  }\n}\n\n._12veyyAN6uPh_cKGapB_0N {\n  border: 1px solid rgb(200, 200, 200);\n  padding: 10px;\n  border-radius: 10px;\n}", ""]);
+exports.push([module.i, "._1DIslOe-gEsQqTzH6MRKD9 {\n  z-index: -1;\n  -webkit-animation-name: _35YneHz04JzuY63SNeQGlZ;\n          animation-name: _35YneHz04JzuY63SNeQGlZ;\n  -webkit-animation-duration: .4s;\n          animation-duration: .4s;\n  -webkit-animation-play-state: paused;\n          animation-play-state: paused;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n  -webkit-filter: blur(5px);\n          filter: blur(5px);\n}\n\n@-webkit-keyframes _35YneHz04JzuY63SNeQGlZ {\n  to {\n    -webkit-filter: unset;\n            filter: unset;\n  }\n}\n\n@keyframes _35YneHz04JzuY63SNeQGlZ {\n  to {\n    -webkit-filter: unset;\n            filter: unset;\n  }\n}\n\n._12veyyAN6uPh_cKGapB_0N {\n  border: 1px solid rgb(200, 200, 200);\n  padding: 10px;\n  border-radius: 10px;\n  background-color: rgba(255, 255, 255, .4);\n}\n\n._3zGaHzfYWh4jVFSwVWBrDg {\n  -webkit-transform: translateY(700px);\n          transform: translateY(700px);\n  text-align: center;\n  border-top: 2px solid black;\n  padding: .2rem;\n}", ""]);
 
 // exports
 exports.locals = {
-	"TopPanel": "_1BpjmvPMJtMMtxQH-v9Rij",
 	"GameArea": "_1DIslOe-gEsQqTzH6MRKD9",
 	"unblur": "_35YneHz04JzuY63SNeQGlZ",
-	"ControlsExplanation": "_12veyyAN6uPh_cKGapB_0N"
+	"ControlsExplanation": "_12veyyAN6uPh_cKGapB_0N",
+	"Footer": "_3zGaHzfYWh4jVFSwVWBrDg"
 };
 
 /***/ }),
@@ -27191,9 +27200,9 @@ var Game = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'row' },
-          _react2.default.createElement(_GameArea2.default, { className: _stylesheet2.default.GameArea, socket: this.socket, interactive: true }),
+          _react2.default.createElement(_GameArea2.default, { className: _stylesheet2.default.GameArea, blockWidth: 30, socket: this.socket, interactive: true }),
           _react2.default.createElement(_PieceConsole2.default, { socket: this.socket }),
-          _react2.default.createElement(_GameArea2.default, { className: _stylesheet2.default.GameArea, inputSocket: this.socket })
+          _react2.default.createElement(_GameArea2.default, { className: _stylesheet2.default.GameArea, blockWidth: 30, inputSocket: this.socket })
         )
       );
     }
@@ -30409,10 +30418,6 @@ var _ControlsExplanation = __webpack_require__(95);
 
 var _ControlsExplanation2 = _interopRequireDefault(_ControlsExplanation);
 
-var _TetrisButton = __webpack_require__(240);
-
-var _TetrisButton2 = _interopRequireDefault(_TetrisButton);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30420,8 +30425,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import style from './stylesheet.css'
-
 
 var Component = function (_React$Component) {
   _inherits(Component, _React$Component);
@@ -30429,16 +30432,39 @@ var Component = function (_React$Component) {
   function Component(props) {
     _classCallCheck(this, Component);
 
-    return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
+
+    _this.state = { gameOver: false };
+    return _this;
   }
 
   _createClass(Component, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'vertical-center' },
-        _react2.default.createElement(_GameArea2.default, { className: 'center', interactive: true })
+        _react2.default.createElement(_GameArea2.default, { className: 'center', interactive: true, background: this.state.gameOver, onGameOver: function onGameOver() {
+            console.log(_this2);_this2.setState({ gameOver: true });
+          } }),
+        this.state.gameOver ? _react2.default.createElement(
+          'div',
+          { className: 'horizontal-center col' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Game Over'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return window.location = '/singleGame';
+              } },
+            'try again?'
+          )
+        ) : ''
       );
     }
   }]);
@@ -30449,56 +30475,7 @@ var Component = function (_React$Component) {
 exports.default = Component;
 
 /***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _stylesheet = __webpack_require__(57);
-
-var _stylesheet2 = _interopRequireDefault(_stylesheet);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Component = function (_React$Component) {
-  _inherits(Component, _React$Component);
-
-  function Component() {
-    _classCallCheck(this, Component);
-
-    return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));
-  }
-
-  _createClass(Component, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('button', null);
-    }
-  }]);
-
-  return Component;
-}(_react2.default.Component);
-
-exports.default = Component;
-
-/***/ }),
+/* 240 */,
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30591,7 +30568,7 @@ exports = module.exports = __webpack_require__(93)(undefined);
 
 
 // module
-exports.push([module.i, "._3XsY2PISfAYrRqcHYKcLRH {\n  padding: 0 2rem;\n}\n\n._2vUBIS7nGEtCdTp6I0c780 {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  border-radius: 0;\n  line-height: 0;\n}\n\n.nvOqL3h-0-1tvZercKIsk {\n  width: 100px;\n  padding: 0 2rem;\n  /* box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, .3); */\n  opacity: .3;\n  -webkit-transition: opacity .3s;\n  transition: opacity .3s;\n}\n\n.nvOqL3h-0-1tvZercKIsk:Hover {\n  opacity: .5;\n}", ""]);
+exports.push([module.i, "._3XsY2PISfAYrRqcHYKcLRH {\n  padding: 0 2rem;\n}\n\n._2vUBIS7nGEtCdTp6I0c780 {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  border-radius: 0;\n  line-height: 0;\n  z-index: 10;\n  /* transition: opacity .3s; */\n}\n\n.nvOqL3h-0-1tvZercKIsk {\n  opacity: .3;\n  width: 100px;\n  padding: 0 2rem;\n  /* box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, .3); */\n\n}\n\n.nvOqL3h-0-1tvZercKIsk:Hover {\n  opacity: .5;\n}", ""]);
 
 // exports
 exports.locals = {
@@ -30748,9 +30725,106 @@ var GRID_COLOR = exports.GRID_COLOR = '#bdc3c7';
 // right-most block is first in the array
 // rotation center is second in the array
 // squares have '[0, 0]' as their rotation center
-var PIECES = exports.PIECES = [[[3, 0], [2, 0], [0, 0], [1, 0]], [[2, 1], [1, 1], [0, 0], [0, 1]], [[2, 0], [1, 1], [0, 1], [2, 1]], [[1, 1], [0, 0], [1, 0], [0, 1]], [[2, 0], [1, 1], [0, 1], [1, 0]], [[2, 1], [1, 1], [1, 0], [0, 0]], [[2, 1], [1, 1], [0, 1], [1, 0]]];
+var PIECES = exports.PIECES = [[[3, 0], [1, 0], [2, 0], [0, 0]], [[2, 1], [0, 0], [1, 1], [0, 1]], [[2, 1], [2, 0], [1, 1], [0, 1]], [[1, 1], [0, 0], [1, 0], [0, 1]], [[2, 0], [0, 1], [1, 1], [1, 0]], [[2, 1], [0, 0], [1, 1], [1, 0]], [[2, 1], [0, 1], [1, 1], [1, 0]]];
 
 var PIECES_URL = exports.PIECES_URL = ['media/piece7.png', 'media/piece5.png', 'media/piece4.png', 'media/piece6.png', 'media/piece3.png', 'media/piece2.png', 'media/piece1.png'];
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(15);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _stylesheet = __webpack_require__(57);
+
+var _stylesheet2 = _interopRequireDefault(_stylesheet);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_React$Component) {
+  _inherits(Footer, _React$Component);
+
+  function Footer() {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+  }
+
+  _createClass(Footer, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'footer',
+        { className: _stylesheet2.default.Footer },
+        _react2.default.createElement(
+          'div',
+          null,
+          'Icons made by ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.flaticon.com/authors/gregor-cresnar', title: 'Gregor Cresnar' },
+            'Gregor Cresnar'
+          ),
+          ' from ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.flaticon.com/', title: 'Flaticon' },
+            'www.flaticon.com'
+          ),
+          ' is licensed by ',
+          _react2.default.createElement(
+            'a',
+            { href: 'http://creativecommons.org/licenses/by/3.0/', title: 'Creative Commons BY 3.0', target: '_blank' },
+            'CC 3.0 BY'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          'Icons made by ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.flaticon.com/authors/roundicons', title: 'Roundicons' },
+            'Roundicons'
+          ),
+          ' from ',
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.flaticon.com/', title: 'Flaticon' },
+            'www.flaticon.com'
+          ),
+          ' is licensed by ',
+          _react2.default.createElement(
+            'a',
+            { href: 'http://creativecommons.org/licenses/by/3.0/', title: 'Creative Commons BY 3.0', target: '_blank' },
+            'CC 3.0 BY'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Footer;
+}(_react2.default.Component);
+
+exports.default = Footer;
 
 /***/ })
 /******/ ]);
