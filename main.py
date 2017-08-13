@@ -64,10 +64,17 @@ def loading():
 @app.route('/game')
 def game():
     pairs = cache.get('pairs')
-    print('ENTER ATTEMPT BY ID', session['id'], 'OPPONENT:', session['opponent'], 'PAIRS', pairs)
-    if session['opponent'] or (session['id'] in pairs):
+    queue = cache.get('queue')
+    print('ENTER ATTEMPT BY ID', session['id'], 'OPPONENT:', session['opponent'], 'PAIRS', pairs, 'QUEUE', queue)
+    if session['opponent'] or (session['id'] in pairs) or (len(queue) > 1):
         print('SUCCESS!')
-        if not session['opponent']:
+        if len(queue) > 1:
+            print('BC OF QUEQUE OVERFLOW')
+            queue.remove(session['id'])
+            pairs[queue.pop(0)] = session['id']
+            cache.set('queue', queue)            
+            cache.set('pairs', pairs)
+        elif not session['opponent']:
             session['opponent'] = pairs.pop(session['id'])
             session.modified = True
             cache.set('pairs', pairs)
