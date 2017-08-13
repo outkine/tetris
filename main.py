@@ -4,7 +4,7 @@ import random
 import string
 from functools import wraps
 from flask_socketio import SocketIO, emit
-
+from werkzeug.contrib.cache import SimpleCache
 
 def random_string(length=16):
     pool = string.ascii_letters + string.digits
@@ -19,7 +19,9 @@ def templated(layout):
         return wrapper
     return decorator
 
-
+cache = SimpleCache()
+cache.set('queue', [])
+cache.set('pairs', {})
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__, static_url_path='', static_folder=os.path.join(BASE_PATH, 'www'))
@@ -28,10 +30,6 @@ app.config.update(
     DEBUG = True
 )
 socketio = SocketIO(app)
-
-queue = []
-pairs = {}
-
 
 @app.route('/')
 @templated('start')
@@ -43,6 +41,7 @@ def home():
 def loading():
     session['opponent'] = None
     session.modified = True
+    queue = cache.get('queue')
     print('LOADING', session, queue)
     if 'id' not in session:
         session['id'] = random_string()
@@ -50,22 +49,28 @@ def loading():
     if queue:
         session['opponent'] = queue.pop(0)
         session.modified = True
+        cache.set('queue', queue)
+        pairs = cache.get('pairs')
         pairs[session['opponent']] = session['id']
+        cache.set('pairs', pairs)
         print('FOUND:', session['opponent'], 'ID:', session['id'])
     else:
         print('NOFOUND, ID:', session['id'])
         session['opponent'] = None
-        session.modified = True 
+        session.modified = True
         queue.append(session['id'])
+        cache.set('queue', queue)
 
 @app.route('/game')
 def game():
+    pairs = cache.get('pairs')
     print('ENTER ATTEMPT BY ID', session['id'], 'OPPONENT:', session['opponent'], 'PAIRS', pairs)
     if session['opponent'] or (session['id'] in pairs):
         print('SUCCESS!')
         if not session['opponent']:
             session['opponent'] = pairs.pop(session['id'])
             session.modified = True
+            cache.set('pairs', pairs)
             print('FOUND', session['opponent'])
         return render_template('index.html', layout='game', id=session['id'], opponent=session['opponent'])
     else:
@@ -86,9 +91,11 @@ def singleGame():
 ###### DEBUG (AGAIN :( )
 @app.before_request
 def log():
+    queue = cache.get('queue')
     if request.path not in ('/game', '/loading') and '.' not in request.path and session['id'] in queue:
         print('QUEUE CLEARED! BITCH')
         queue.remove(session['id'])
+        cache.set('queue', queue)
 
 
 @app.after_request
