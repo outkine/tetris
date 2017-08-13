@@ -6,7 +6,7 @@ import io from 'socket.io-client'
 class Game extends React.Component {
   constructor (props) {
     super(props)
-    this.socket = io()
+    this.socket = io('http://127.0.0.1:5000/socket.io')
   }
   render () {
     return (
