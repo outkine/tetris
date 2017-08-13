@@ -5,11 +5,6 @@ import string
 from functools import wraps
 from flask_socketio import SocketIO, emit
 
-############### DEBUGGING ONLY
-import socket
-def prints(*args):
-    print(socket.gethostbyname(socket.gethostname()), ':', *args)
-###################
 
 def random_string(length=16):
     pool = string.ascii_letters + string.digits
@@ -51,33 +46,34 @@ def loading():
     print('LOADING', session, queue)
     if 'id' not in session:
         session['id'] = random_string()
-        prints('NEWID:', session['id'])
+        print('NEWID:', session['id'])
     if queue:
         session['opponent'] = queue.pop(0)
         # session.modified = True
         pairs[session['opponent']] = session['id']
-        prints('FOUND:', session['opponent'], 'ID:', session['id'])
+        print('FOUND:', session['opponent'], 'ID:', session['id'])
     else:
-        prints('NOFOUND, ID:', session['id'])
+        print('NOFOUND, ID:', session['id'])
         session['opponent'] = None
         # session.modified = True 
         queue.append(session['id'])
 
 @app.route('/game')
 def game():
+    print('ENTER ATTEMPT BY ID', session['id'], 'OPPONENT:', session['opponent'], 'PAIRS', pairs)
     if session['opponent'] or (session['id'] in pairs):
-        prints('ID:', session['id'], 'OPPONENT:', session['opponent'], 'PAIRS:', pairs)
+        print('SUCCESS!')
         if not session['opponent']:
             session['opponent'] = pairs.pop(session['id'])
             # session.modified = True
-            prints('FOUND', session['opponent'])
+            print('FOUND', session['opponent'])
         return render_template('index.html', layout='game', id=session['id'], opponent=session['opponent'])
     else:
         return ('', 204)
 
 @socketio.on('move')
 def process_move(data):
-    print(data)
+    print('SEND DATA ID:', data['id'])
     emit('moveOther', data, broadcast=True)
 
 
