@@ -244,7 +244,6 @@ class Component extends React.Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
       if (drawGridLines) {
-        console.log('drawing')
         // draw new grid
         ctx.strokeStyle = GRID_COLOR
         for (let x = 0; x <= this.GRID_WIDTH; x++) {
