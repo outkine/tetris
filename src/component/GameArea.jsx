@@ -244,6 +244,7 @@ class Component extends React.Component {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
       if (drawGridLines) {
+        console.log('drawing')
         // draw new grid
         ctx.strokeStyle = GRID_COLOR
         for (let x = 0; x <= this.GRID_WIDTH; x++) {
@@ -263,7 +264,7 @@ class Component extends React.Component {
       // draw new pieces
       for (let x = 0; x < this.GRID_WIDTH; x++) {
         for (let y = 0; y < GRID_HEIGHT; y++) {
-          if (typeof grid[x][y] !== 'undefined') {
+          if (typeof grid[x][y] !== 'undefined' && grid[x][y] !== null) {
             // when the colors run out, loops back to the first one
             ctx.fillStyle = COLORS[grid[x][y] - COLORS.length * Math.floor(grid[x][y] / COLORS.length)]
             ctx.fillRect(x * this.BLOCK_WIDTH, (y - HIDDEN_HEIGHT) * this.BLOCK_WIDTH, this.BLOCK_WIDTH, this.BLOCK_WIDTH)
@@ -353,6 +354,7 @@ class Component extends React.Component {
           drawGrid(grid, false)
           if (checkIfDone2(grid)) {
             window.location = this.props.transition
+            return
           }
         } else {
           if (this.props.transition) {
@@ -369,6 +371,9 @@ class Component extends React.Component {
           grid = updateGrid(grid, currentPiece, currentPieceId)
           checkForFull(grid)
           drawGrid(grid)
+          if (this.props.socket) {
+            this.props.socket.emit('move', {'id': id, 'grid': grid})
+          }
           if (results[2]) {
             if (this.props.transition) {
               phase = 'transition1'
@@ -382,7 +387,17 @@ class Component extends React.Component {
       }
       window.requestAnimationFrame(update)
     }
-    window.requestAnimationFrame(update)
+
+    if (this.props.inputSocket) {
+      this.props.inputSocket.on('moveOther', (data) => {
+        console.log('got data', data)
+        if (data['id'] == opponent) {
+          drawGrid(data['grid'])
+        }
+      })
+    } else {
+      window.requestAnimationFrame(update)
+    }
 
     if (this.props.interactive) {
       document.addEventListener('keyup', (event) => {

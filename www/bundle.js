@@ -22925,6 +22925,7 @@ var Component = function (_React$Component) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         if (drawGridLines) {
+          console.log('drawing');
           // draw new grid
           ctx.strokeStyle = GRID_COLOR;
           for (var x = 0; x <= _this.GRID_WIDTH; x++) {
@@ -22944,7 +22945,7 @@ var Component = function (_React$Component) {
         // draw new pieces
         for (var _x3 = 0; _x3 < _this.GRID_WIDTH; _x3++) {
           for (var _y = 0; _y < GRID_HEIGHT; _y++) {
-            if (typeof grid[_x3][_y] !== 'undefined') {
+            if (typeof grid[_x3][_y] !== 'undefined' && grid[_x3][_y] !== null) {
               // when the colors run out, loops back to the first one
               ctx.fillStyle = COLORS[grid[_x3][_y] - COLORS.length * Math.floor(grid[_x3][_y] / COLORS.length)];
               ctx.fillRect(_x3 * _this.BLOCK_WIDTH, (_y - HIDDEN_HEIGHT) * _this.BLOCK_WIDTH, _this.BLOCK_WIDTH, _this.BLOCK_WIDTH);
@@ -23036,6 +23037,7 @@ var Component = function (_React$Component) {
             drawGrid(grid, false);
             if (checkIfDone2(grid)) {
               window.location = _this.props.transition;
+              return;
             }
           } else {
             if (_this.props.transition) {
@@ -23052,6 +23054,9 @@ var Component = function (_React$Component) {
             grid = updateGrid(grid, currentPiece, currentPieceId);
             checkForFull(grid);
             drawGrid(grid);
+            if (_this.props.socket) {
+              _this.props.socket.emit('move', { 'id': id, 'grid': grid });
+            }
             if (results[2]) {
               if (_this.props.transition) {
                 phase = 'transition1';
@@ -23065,7 +23070,17 @@ var Component = function (_React$Component) {
         }
         window.requestAnimationFrame(update);
       };
-      window.requestAnimationFrame(update);
+
+      if (_this.props.inputSocket) {
+        _this.props.inputSocket.on('moveOther', function (data) {
+          console.log('got data', data);
+          if (data['id'] == opponent) {
+            drawGrid(data['grid']);
+          }
+        });
+      } else {
+        window.requestAnimationFrame(update);
+      }
 
       if (_this.props.interactive) {
         document.addEventListener('keyup', function (event) {
@@ -23222,10 +23237,6 @@ var _GameArea = __webpack_require__(185);
 
 var _GameArea2 = _interopRequireDefault(_GameArea);
 
-var _Chat = __webpack_require__(188);
-
-var _Chat2 = _interopRequireDefault(_Chat);
-
 var _socket = __webpack_require__(220);
 
 var _socket2 = _interopRequireDefault(_socket);
@@ -23246,8 +23257,7 @@ var Game = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-    _this.socket = (0, _socket2.default)('http://127.0.0.1:5000/');
-    _this.socket.emit('move', 'what up');
+    _this.socket = (0, _socket2.default)();
     return _this;
   }
 
@@ -23256,8 +23266,9 @@ var Game = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(_GameArea2.default, { socket: this.socket })
+        { className: 'row' },
+        _react2.default.createElement(_GameArea2.default, { socket: this.socket, interactive: true }),
+        _react2.default.createElement(_GameArea2.default, { inputSocket: this.socket })
       );
     }
   }]);
@@ -23268,54 +23279,7 @@ var Game = function (_React$Component) {
 exports.default = Game;
 
 /***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(16);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import style from './stylesheet.css'
-
-var Chat = function (_React$Component) {
-  _inherits(Chat, _React$Component);
-
-  function Chat() {
-    _classCallCheck(this, Chat);
-
-    return _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).apply(this, arguments));
-  }
-
-  _createClass(Chat, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('div', null);
-    }
-  }]);
-
-  return Chat;
-}(_react2.default.Component);
-
-exports.default = Chat;
-
-/***/ }),
+/* 188 */,
 /* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
