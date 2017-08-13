@@ -13,7 +13,7 @@ class Main extends React.Component {
   componentDidMount () {
     this.interval = setInterval(() => {
       window.location = '/game'
-    }, 1000)
+    }, 3000)
   }
 
   componentWillUnmount () {

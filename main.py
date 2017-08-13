@@ -43,9 +43,9 @@ def loading():
     session.modified = True
     queue = cache.get('queue')
     print('LOADING', session, queue)
-    # if 'id' not in session:
-    session['id'] = random_string()
-    print('NEWID:', session['id'])
+    if 'id' not in session:
+        session['id'] = random_string()
+        print('NEWID:', session['id'])
     if queue:
         session['opponent'] = queue.pop(0)
         session.modified = True
