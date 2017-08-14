@@ -90,22 +90,20 @@ def singleGame():
     pass
 
 
-###### DEBUG (AGAIN :( )
 @app.before_request
 def log():
-    if request.path not in ('/game', '/loading') and '.' not in request.path and session['id'] in queue:
+    if (request.path not in ('/game', '/loading') and '.' not in request.path) and ('id' in session and session['id'] in queue):
         print('QUEUE CLEARED! BITCH')
         queue.remove(session['id'])
 
 
-@app.after_request
-def add_header(r):
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    r.headers["Pragma"] = "no-cache"
-    r.headers["Expires"] = "0"
-    r.headers['Cache-Control'] = 'public, max-age=0'
-    return r
-############
+# @app.after_request
+# def add_header(r):
+#     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     r.headers["Pragma"] = "no-cache"
+#     r.headers["Expires"] = "0"
+#     r.headers['Cache-Control'] = 'public, max-age=0'
+#     return r
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0')
