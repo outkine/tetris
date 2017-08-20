@@ -19,7 +19,7 @@ class Main extends React.Component {
           !this.state.transition ? (
             <div className="horizontal-center col">
               <h3>Welcome to</h3>
-              <h1>Austhetically Pleasing Tetris</h1>
+              <h1>Aesthetically Pleasing Tetris</h1>
               <br /><br />
               <ControlsExplanation />
               <br />
